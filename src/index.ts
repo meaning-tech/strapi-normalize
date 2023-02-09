@@ -1,39 +1,39 @@
-export const Normalize = (objectToConvert: any) => {
-  const isObject = (data: any) => Object.prototype.toString.call(data) === '[object Object]';
-  const isArray = (data: any) => Object.prototype.toString.call(data) === '[object Array]';
+export const Normalize = (data: any) => {
+  const isObject = (dataItem: any) => Object.prototype.toString.call(dataItem) === '[object Object]';
+  const isArray = (dataItem: any) => Object.prototype.toString.call(dataItem) === '[object Array]';
 
-  const flatten = (data: any) => {
-    if (!data.attributes) {
-      return data;
+  const flatten = (dataItem: any) => {
+    if (!dataItem.attributes) {
+      return dataItem;
     }
 
     return {
-      id: data.id,
-      ...data.attributes,
+      id: dataItem.id,
+      ...dataItem.attributes,
     };
   };
 
-  if (isArray(objectToConvert)) {
-    return objectToConvert.map((item: any) => Normalize(item));
+  if (isArray(data)) {
+    return data.map((item: any) => Normalize(item));
   }
 
-  if (isObject(objectToConvert)) {
-    if (isArray(objectToConvert.data)) {
-      objectToConvert = [...objectToConvert.data];
-    } else if (isObject(objectToConvert.data)) {
-      objectToConvert = flatten({ ...objectToConvert.data });
-    } else if (objectToConvert.data === null) {
-      objectToConvert = null;
+  if (isObject(data)) {
+    if (isArray(data.data)) {
+      data = [...data.data];
+    } else if (isObject(data.data)) {
+      data = flatten({ ...data.data });
+    } else if (data.data === null) {
+      data = null;
     } else {
-      objectToConvert = flatten(objectToConvert);
+      data = flatten(data);
     }
 
-    for (const key of objectToConvert) {
-      objectToConvert[key] = Normalize(objectToConvert[key]);
+    for (const key of data) {
+      data[key] = Normalize(data[key]);
     }
 
-    return objectToConvert;
+    return data;
   }
 
-  return objectToConvert;
+  return data;
 };
