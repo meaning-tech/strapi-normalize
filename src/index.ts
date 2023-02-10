@@ -1,39 +1,42 @@
 export const Normalize = (data: any) => {
-  const isObject = (dataItem: any) => Object.prototype.toString.call(dataItem) === '[object Object]';
-  const isArray = (dataItem: any) => Object.prototype.toString.call(dataItem) === '[object Array]';
+  const isObject = (dataObj: any) =>
+      Object.prototype.toString.call(dataObj) === '[object Object]'
+  const isArray = (dataObj: any) =>
+      Object.prototype.toString.call(dataObj) === '[object Array]'
 
-  const flatten = (dataItem: any) => {
-    if (!dataItem.attributes) {
-      return dataItem;
+  const flatten = (dataObj: any) => {
+    if (!dataObj.attributes) {
+      return dataObj
     }
 
     return {
-      id: dataItem.id,
-      ...dataItem.attributes,
-    };
-  };
+      id: dataObj.id,
+      ...dataObj.attributes
+    }
+  }
 
   if (isArray(data)) {
-    return data.map((item: any) => Normalize(item));
+    return data.map((item: any) => Normalize(item))
   }
 
   if (isObject(data)) {
     if (isArray(data.data)) {
-      data = [...data.data];
+      data = [...data.data]
     } else if (isObject(data.data)) {
-      data = flatten({ ...data.data });
+      data = flatten({ ...data.data })
     } else if (data.data === null) {
-      data = null;
+      data = null
     } else {
-      data = flatten(data);
+      data = flatten(data)
     }
 
-    for (const key of data) {
-      data[key] = Normalize(data[key]);
+    // tslint:disable-next-line:forin
+    for (const key in data) {
+      data[key] = Normalize(data[key])
     }
 
-    return data;
+    return data
   }
 
-  return data;
-};
+  return data
+}
