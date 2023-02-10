@@ -1,7 +1,7 @@
 [![codecov](https://codecov.io/gh/meaning-tech/strapi-normalize/branch/main/graph/badge.svg?token=2ZF5AXCPHY)](https://codecov.io/gh/meaning-tech/strapi-normalize)
 [![alt text](https://badgen.net/npm/v/@meaning-tech/normaize-strapi-v4)](https://www.npmjs.com/package/@meaning-tech/normaize-strapi-v4)
 ![alt text](https://badgen.net/github/checks/meaning-tech/strapi-normalize/main)
-![alt text](https://badgen.net/github/license/meaning-tech/strapi-normalize)
+![alt text](https://badgen.net/npm/license/@meaning-tech/normaize-strapi-v4)
 
 # Normalize Strapi Api V4
 
